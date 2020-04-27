@@ -1,0 +1,165 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Overleaf Example: A quick guide to LaTeX
+%
+% Original Source: Dave Richeson (divisbyzero.com), Dickinson College
+% Modified By: Paul Gessler, Overleaf (overleaf.com)
+%
+% A one-size-fits-all LaTeX cheat sheet. Kept to two pages, so it
+% can be printed (double-sided) on one piece of paper
+%
+% Feel free to distribute this example, but please keep the referral
+% to divisbyzero.com
+%
+% Guidance on the use of the Overleaf logos can be found here:
+% https://www.overleaf.com/for/partners/logos
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% How to use Overleaf:
+%
+% You edit the source code here on the left, and the preview on the
+% right shows you the result within a few seconds.
+%
+% Bookmark this page and share the URL with your co-authors. They can
+% edit at the same time!
+%
+% You can upload figures, bibliographies, custom classes and
+% styles using the files menu.
+%
+% If you're new to LaTeX, the wikibook is a great place to start:
+% http://en.wikibooks.org/wiki/LaTeX
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt,landscape,letterpaper]{article}
+\usepackage{xfp}
+
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{spverbatim}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,urlcolor=olgreen]{hyperref}
+\usepackage{booktabs}
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
+\setsansfont{Fira Sans}
+\setmonofont{Inconsolata}
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Pagella Math}
+\usepackage{microtype}
+% dirty fix for microtype
+\makeatletter
+\def\MT@is@composite#1#2\relax{%
+  \ifx\\#2\\\else
+    \expandafter\def\expandafter\MT@char\expandafter{\csname\expandafter
+                    \string\csname\MT@encoding\endcsname
+                    \MT@detokenize@n{#1}-\MT@detokenize@n{#2}\endcsname}%
+    % 3 lines added:
+    \ifx\UnicodeEncodingName\@undefined\else
+      \expandafter\expandafter\expandafter\MT@is@uni@comp\MT@char\iffontchar\else\fi\relax
+    \fi
+    \expandafter\expandafter\expandafter\MT@is@letter\MT@char\relax\relax
+    \ifnum\MT@char@ < \z@
+      \ifMT@xunicode
+        \edef\MT@char{\MT@exp@two@c\MT@strip@prefix\meaning\MT@char>\relax}%
+          \expandafter\MT@exp@two@c\expandafter\MT@is@charx\expandafter
+            \MT@char\MT@charxstring\relax\relax\relax\relax\relax
+      \fi
+    \fi
+  \fi
+}
+% new:
+\def\MT@is@uni@comp#1\iffontchar#2\else#3\fi\relax{%
+  \ifx\\#2\\\else\edef\MT@char{\iffontchar#2\fi}\fi
+}
+\makeatother
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{margin=0.4in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\sffamily\large}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\sffamily\normalsize\itshape}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\itshape}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+
+\usepackage{academicons}
+
+\usepackage{draftwatermark,afterpage,xcolor}
+\definecolor{olgreen}{HTML}{4f9c45}
+\SetWatermarkText{\aiOverleaf}
+\SetWatermarkFontSize{0.9\paperheight}
+\SetWatermarkAngle{0}
+\SetWatermarkColor[HTML]{EDF5EC}
+%\SetWatermarkLightness{0.95}
+\SetWatermarkHorCenter{0.35\paperwidth}
+
+\begin{document}
+
+\def\lbft[#1]{\fpeval{round(#1*0.73756,1)}}
+\def\nm[#1]{\fpeval{round(#1/0.73756,1)}}
+\footnotesize
+%\raggedright
+
+\begin{center}
+  {\huge\sffamily\bfseries Volvo P2 Reference} \\
+\end{center}
+\setlength{\premulticols}{0pt}
+\setlength{\postmulticols}{0pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{1.8em}
+\begin{multicols}{2}
+
+
+\section{Torque Specifications}
+
+\subsection{General}
+\begin{tabular}{llll}
+\toprule
+    \emph{Thread} & \emph{Newton-meters} & \emph{\approx Pound-feet} & \emph{+Angle}\\
+\midrule
+    & 1 & 0.73756\\
+    & \approx1.3558 &  1\\
+    M5 & 5 & \lbft[5]\\
+    M6 & 10 & \lbft[10]\\
+    M7 & 17 & \lbft[17]\\
+    M8 & 24 & \lbft[24]\\
+    M10 & 50 & \lbft[50]\\
+    M12 & 80 & \lbft[80]\\
+    M14 & 130 & \lbft[130]\\
+    Exhaust system to turbocharger & 30 & \lbft[30] \\
+    Cylinder head & 20, 60 & \lbft[20], \lbft[60] & 130$^{\circ}$ \\
+    Manifold & 25 & \lbft[25] \\
+    Oil filter & 25 & \lbft[25] \\
+    Oil trap & 15 & \lbft[15] \\
+    Oil pan plug & 38 & \lbft[38] \\
+    Oil pump & 6 & \lbft[6] \\
+
+    \bottomrule
+\end{tabular}
+
+
+\vfill
+%{\hfill\includegraphics[width=0.9\hsize]{Overleaf_main_logo_vector}\hfill}
+
+\end{multicols}
+
+%\SetWatermarkHorCenter{0.65\paperwidth}
+\end{document}
